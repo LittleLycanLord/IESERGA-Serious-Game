@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &412824084712638126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2006058650988426949}
+  - component: {fileID: 4180210038113142713}
+  - component: {fileID: 5800516568476746758}
+  m_Layer: 0
+  m_Name: TriggerCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2006058650988426949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412824084712638126}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1824954129808625270}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4180210038113142713
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412824084712638126}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 4, z: 3}
+  m_Center: {x: 0.3, y: 1, z: 1}
+--- !u!114 &5800516568476746758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412824084712638126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f41ae0f19466a419781dcc8738be0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4410298688407043762
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +79,7 @@ GameObject:
   - component: {fileID: 1924015628596675739}
   m_Layer: 0
   m_Name: FPS-Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +99,7 @@ Transform:
   m_Children:
   - {fileID: 794235101141243834}
   - {fileID: 5089751453016229642}
+  - {fileID: 2006058650988426949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4014891169186386069
@@ -80,7 +147,9 @@ MonoBehaviour:
   playerCamera: {fileID: 6722413495913297325}
   lookSpeed: 1.5
   lookXLimit: 60
+  objectInRange: {fileID: 0}
   canMove: 1
+  canInteract: 0
 --- !u!1 &4422990064278540422
 GameObject:
   m_ObjectHideFlags: 0

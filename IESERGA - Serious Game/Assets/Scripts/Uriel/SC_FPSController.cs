@@ -13,6 +13,7 @@ public class SC_FPSController : MonoBehaviour
     public Camera playerCamera;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
+    public GameObject objectInRange = null;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -20,6 +21,7 @@ public class SC_FPSController : MonoBehaviour
 
     [HideInInspector]
     public bool canMove = true;
+    public bool canInteract = true;
 
     void Start()
     {
@@ -71,4 +73,37 @@ public class SC_FPSController : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
+
+    void FixedUpdate(){
+
+        if(canInteract){
+            if (Input.GetKey(KeyCode.E)){
+                
+                Debug.Log("interact button pressed.");
+
+                 // Bit shift the index of the layer (8) to get a bit mask
+                int layerMask = 1 << 8;
+
+
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+                {
+                    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+
+                    if(hit.collider.gameObject.CompareTag("Interactable"))
+                        Debug.Log("Did Hit");
+
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+                    Debug.Log("Did not Hit");
+                }
+            }
+        }
+    }
 }
+
+
+
