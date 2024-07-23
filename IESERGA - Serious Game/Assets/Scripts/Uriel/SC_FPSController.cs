@@ -79,7 +79,17 @@ public class SC_FPSController : MonoBehaviour
         if(canInteract){
             if (Input.GetKey(KeyCode.E)){
                 
-                Debug.Log("interact button pressed.");
+                this.interact();
+            }
+        }
+
+        if(Input.GetKey(KeyCode.Escape)){
+            Application.Quit();
+        }
+    }
+
+    private void interact(){
+        Debug.Log("interact button pressed.");
 
                  // Bit shift the index of the layer (8) to get a bit mask
                 int layerMask = 1 << 8;
@@ -87,12 +97,15 @@ public class SC_FPSController : MonoBehaviour
 
                 RaycastHit hit;
                 // Does the ray intersect any objects excluding the player layer
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f, layerMask))
                 {
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
-                    if(hit.collider.gameObject.CompareTag("Interactable"))
-                        Debug.Log("Did Hit");
+                    if(hit.collider.gameObject.CompareTag("Interactable")){
+
+                        Debug.Log("Did Hit, object deactivating");
+                        hit.collider.gameObject.SetActive(false);
+                    }
 
                 }
                 else
@@ -100,8 +113,6 @@ public class SC_FPSController : MonoBehaviour
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
                     Debug.Log("Did not Hit");
                 }
-            }
-        }
     }
 }
 
