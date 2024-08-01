@@ -7,6 +7,7 @@ using UnityEngine;
 public class InteractableTrigger : MonoBehaviour
 {
     SC_FPSController player;
+    UI_Manager UI_Controller;
     // Start is called before the first frame update
 
     void Start(){

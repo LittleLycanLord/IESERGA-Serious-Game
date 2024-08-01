@@ -16,6 +16,7 @@ public class SC_FPSController : MonoBehaviour
     public GameObject objectInRange = null;
 
     CharacterController characterController;
+
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
@@ -26,7 +27,6 @@ public class SC_FPSController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -76,15 +76,18 @@ public class SC_FPSController : MonoBehaviour
 
     void FixedUpdate(){
 
-        if(canInteract){
-            if (Input.GetKey(KeyCode.E)){
-                
-                this.interact();
-            }
-        }
+        if(canMove != false){
 
-        if(Input.GetKey(KeyCode.Escape)){
-            Application.Quit();
+            if(canInteract){
+                if (Input.GetKey(KeyCode.E)){
+                    
+                    this.interact();
+                }
+            }
+
+            if(Input.GetKey(KeyCode.Escape)){
+                Application.Quit();
+            }
         }
     }
 
@@ -101,10 +104,13 @@ public class SC_FPSController : MonoBehaviour
                 {
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
-                    if(hit.collider.gameObject.CompareTag("Interactable")){
+                    if(hit.collider.gameObject.CompareTag("Console")){
 
                         Debug.Log("Did Hit, object deactivating");
-                        hit.collider.gameObject.SetActive(false);
+                        UI_Manager.Instance.DisplayPrompt();
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        //hit.collider.gameObject.SetActive(false);
                     }
 
                 }

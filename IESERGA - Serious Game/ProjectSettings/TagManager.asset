@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - Console
+  - Input_1
+  - Input_2
   layers:
   - Default
   - TransparentFX
