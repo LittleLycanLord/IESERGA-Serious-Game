@@ -13,11 +13,10 @@ public class UI_Manager : Singleton<UI_Manager>
     public Canvas doorPrompt;
 
     private string stringValue = "0";
-    int intValue_1 = 0;
+    
+    public int intValue_1 = 0;
 
-    int intValue_2 = 0;
-
-    bool success = false;
+    public int intValue_2 = 0;
 
     void Start(){
         doorPrompt.enabled = false;
@@ -47,17 +46,23 @@ public class UI_Manager : Singleton<UI_Manager>
             player.canInteract = false;
         }
     }
-    public void SetInputOne()
+    public void SetInput()
     {
         // Set the Text element to the value of the Input Field
 
-        success = int.TryParse(user_input_field_1.text, out intValue_1);
+        bool isInteger = int.TryParse(user_input_field_1.text, out intValue_1);
+        bool isInteger2 = int.TryParse(user_input_field_2.text, out intValue_2);
 
-        if(success == true)
+        if(isInteger == true && isInteger2 == true){
             intValue_1 = int.Parse(user_input_field_1.text);
-        
-        else
+            intValue_2 = int.Parse(user_input_field_2.text);
+        }
+
+        else{
             intValue_1 = 0;
+            intValue_2 = 0;
+
+        }
     }
 
     public void ClosePrompt(){
