@@ -11,17 +11,19 @@ public class UI_Manager : Singleton<UI_Manager>
     public TMP_InputField user_input_field_2;
 
     public Canvas doorPrompt;
-
-    private string stringValue = "0";
     
     public int intValue_1 = 0;
 
     public int intValue_2 = 0;
 
     void Start(){
-        doorPrompt.enabled = false;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
+        doorPrompt.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
+
     public void Reset(){
 
         user_input_field_1.text = "Enter First Multiple";
@@ -34,6 +36,8 @@ public class UI_Manager : Singleton<UI_Manager>
     public void DisplayPrompt(){
 
         doorPrompt.enabled = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         if(player != null){
             player.canMove = false;
@@ -46,6 +50,7 @@ public class UI_Manager : Singleton<UI_Manager>
             player.canInteract = false;
         }
     }
+
     public void SetInput()
     {
         // Set the Text element to the value of the Input Field
@@ -61,16 +66,31 @@ public class UI_Manager : Singleton<UI_Manager>
         else{
             intValue_1 = 0;
             intValue_2 = 0;
+        }
+
+        //function for opening the door.
+        if(player.objectInRange != null){
+
+            ConsoleBehavior consoleBehavior = player.objectInRange.GetComponent<ConsoleBehavior>();
+
+            if(consoleBehavior != null){
+                consoleBehavior.OpenDoor();
+            }
 
         }
+
+        this.ClosePrompt();
     }
 
     public void ClosePrompt(){
 
-        //this.Reset();
+        this.Reset();
         doorPrompt.enabled = false;
         player.canMove = true;
         player.canInteract = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
     }
 }

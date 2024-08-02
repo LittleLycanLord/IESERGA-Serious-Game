@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,6 @@ public class SC_FPSController : MonoBehaviour
     public Camera playerCamera;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
-    public GameObject objectInRange = null;
 
     CharacterController characterController;
 
@@ -23,13 +23,12 @@ public class SC_FPSController : MonoBehaviour
     [HideInInspector]
     public bool canMove = true;
     public bool canInteract = true;
+    public GameObject objectInRange;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        
     }
 
     void Update()
@@ -105,11 +104,10 @@ public class SC_FPSController : MonoBehaviour
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
                     if(hit.collider.gameObject.CompareTag("Console")){
-
+                    
+                        objectInRange = hit.collider.gameObject;
                         Debug.Log("Did Hit, object deactivating");
                         UI_Manager.Instance.DisplayPrompt();
-                        Cursor.lockState = CursorLockMode.None;
-                        Cursor.visible = true;
                         //hit.collider.gameObject.SetActive(false);
                     }
 
