@@ -35,12 +35,20 @@ public class ConsoleBehavior : MonoBehaviour
 
             else {
                 Debug.Log("Verification failed. Number was greater than one but is same value as what is listed. Mark as mistake.");
+                Game_Manager.Instance.DeductChances();
                 return false;
             }
         }
 
         Debug.Log("Verification failed. Mark as mistake.");
+        Game_Manager.Instance.DeductChances();
         return false;
+        
+    }
+
+    public void Reset(){
+
+        this.assigned_Door.SetActive(true);
         
     }
 }

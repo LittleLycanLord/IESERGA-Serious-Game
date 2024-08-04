@@ -99,16 +99,29 @@ public class SC_FPSController : MonoBehaviour
 
                 RaycastHit hit;
                 // Does the ray intersect any objects excluding the player layer
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f, layerMask))
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2.0f, layerMask))
                 {
                     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
                     if(hit.collider.gameObject.CompareTag("Console")){
                     
                         objectInRange = hit.collider.gameObject;
-                        Debug.Log("Did Hit, object deactivating");
                         UI_Manager.Instance.DisplayPrompt();
                         //hit.collider.gameObject.SetActive(false);
+                    }
+
+                    else if(hit.collider.gameObject.CompareTag("Interactable")){
+
+                        objectInRange = hit.collider.gameObject;
+                        objectInRange.GetComponent<InteractableTrigger>().OnHit();
+                        Debug.Log("Did Hit, object deactivating");
+                    }
+
+                    else if(hit.collider.gameObject.CompareTag("Central Console")){
+
+                        objectInRange = hit.collider.gameObject;
+                        UI_Manager.Instance.DisplayGCFPrompt();
+                        Debug.Log("Did Hit, object deactivating");
                     }
 
                 }

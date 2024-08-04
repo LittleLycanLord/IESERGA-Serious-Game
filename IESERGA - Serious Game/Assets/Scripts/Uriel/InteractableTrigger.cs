@@ -6,31 +6,28 @@ using UnityEngine;
 
 public class InteractableTrigger : MonoBehaviour
 {
-    SC_FPSController player;
-    UI_Manager UI_Controller;
-    // Start is called before the first frame update
+   //Public id to refer to what kind of keycard it is
+   public int id = 0;
 
-    void Start(){
-        Debug.Log("Interactable trigger instantiated.");
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
-    }
+   [SerializeField]
+   private GameObject keycard;
 
-    void OnTriggerEnter(Collider other){
-        
-        Debug.Log("Object interactable in range.");
+   private bool isPickedUp = false;
+   public void OnHit(){
 
-        if(other.CompareTag("Interactable") == true){
-            Debug.Log("Object interactable in range.");
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
-            player.objectInRange = other.gameObject;
-            player.canInteract = true;
-        }
-    }
+      if(isPickedUp == false){
+         Game_Manager.Instance.addToInventory(id);
+         isPickedUp = true;
+         keycard.SetActive(false);
+      }
 
-    void OnTriggerExit(Collider other){
-         if(other.CompareTag("Interactable") == true){
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
-            player.canInteract = false;
-        }
-    }
+   }
+
+   public void Reset(){
+
+      this.gameObject.SetActive(true);
+      keycard.SetActive(true);
+      isPickedUp = false;
+   }
+    
 }

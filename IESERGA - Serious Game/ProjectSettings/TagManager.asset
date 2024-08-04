@@ -8,6 +8,8 @@ TagManager:
   - Console
   - Input_1
   - Input_2
+  - Timer
+  - Central Console
   layers:
   - Default
   - TransparentFX
