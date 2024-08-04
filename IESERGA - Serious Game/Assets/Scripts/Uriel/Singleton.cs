@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+
+public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
 
@@ -12,9 +13,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (_instance == null)
             {
-                // Find an existing instance in the scene
-                
-                _instance = Object.FindAnyObjectByType<T>();
+                // Find the first instance in the scene
+                _instance = Object.FindFirstObjectByType<T>();
 
                 // If no instance is found, create a new GameObject with this component
                 if (_instance == null)
@@ -29,7 +29,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Ensure that there is only one instance
         if (_instance == null)
@@ -43,4 +43,3 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 }
-

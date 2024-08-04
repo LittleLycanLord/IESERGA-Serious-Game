@@ -12,13 +12,15 @@ public class CentralBehavior : MonoBehaviour
     // Start is called before the first frame update
     public void CheckForWin()
     {
-        if(this.Verify()){
-
+        PlayerData player = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
+        
+        if (this.Verify())
+        {
             door.SetActive(false);
         }
-
-        else {
-            Game_Manager.Instance.DeductChances();
+        else
+        {
+            player.DeductChances();
         }
     }
 

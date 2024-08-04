@@ -25,6 +25,8 @@ public class SC_FPSController : MonoBehaviour
     public bool canInteract = true;
     public GameObject objectInRange;
 
+
+    
     void Start()
     {
         characterController = GetComponent<CharacterController>();

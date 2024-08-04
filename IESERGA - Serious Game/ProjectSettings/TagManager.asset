@@ -10,6 +10,13 @@ TagManager:
   - Input_2
   - Timer
   - Central Console
+  - Fire
+  - ConsoleUI
+  - InputUI
+  - LoseUI
+  - WinUI
+  - CounterUI
+  - PlayerData
   layers:
   - Default
   - TransparentFX

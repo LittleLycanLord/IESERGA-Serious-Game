@@ -11,11 +11,20 @@ public class ConsoleBehavior : MonoBehaviour
     //number value that helps assign the console's number to be deciphered.
     public int nNumberVal = 0;
 
+    private bool hasDeducted = false;
+
     public void OpenDoor(){
 
         if(Verify(UI_Manager.Instance.intValue_1, UI_Manager.Instance.intValue_2))
         {
             this.assigned_Door.SetActive(false);
+        }
+
+        else {
+            hasDeducted = true;
+            PlayerData player = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
+            player.DeductChances();
+            hasDeducted = false;
         }
     }
 
@@ -32,16 +41,9 @@ public class ConsoleBehavior : MonoBehaviour
                 }
 
             }
-
-            else {
-                Debug.Log("Verification failed. Number was greater than one but is same value as what is listed. Mark as mistake.");
-                Game_Manager.Instance.DeductChances();
-                return false;
-            }
         }
 
         Debug.Log("Verification failed. Mark as mistake.");
-        Game_Manager.Instance.DeductChances();
         return false;
         
     }
@@ -49,6 +51,6 @@ public class ConsoleBehavior : MonoBehaviour
     public void Reset(){
 
         this.assigned_Door.SetActive(true);
-        
+
     }
 }

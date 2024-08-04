@@ -9,6 +9,9 @@ public class InteractableTrigger : MonoBehaviour
    //Public id to refer to what kind of keycard it is
    public int id = 0;
 
+   //Denote what particular multiple was this assigned to.
+   public int row = 0;
+
    [SerializeField]
    private GameObject keycard;
 
@@ -16,7 +19,7 @@ public class InteractableTrigger : MonoBehaviour
    public void OnHit(){
 
       if(isPickedUp == false){
-         Game_Manager.Instance.addToInventory(id);
+         Game_Manager.Instance.addToInventory(row, id);
          isPickedUp = true;
          keycard.SetActive(false);
       }

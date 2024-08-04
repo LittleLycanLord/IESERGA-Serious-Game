@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class UI_Manager : Singleton<UI_Manager>
     public Canvas winPrompt;
 
     public Canvas losePrompt;
+
+    public TMP_Text lossCounter;
     
     public int intValue_1 = 0;
 
@@ -38,17 +41,42 @@ public class UI_Manager : Singleton<UI_Manager>
         Cursor.visible = false;
     }
 
+    public void Initialize(){
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
+        doorPrompt.enabled = false;
+        exitPrompt.enabled = false;
+        winPrompt.enabled = false;
+        losePrompt.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public void Reset(){
 
         user_input_field_1.text = "Enter First Multiple";
         user_input_field_2.text = "Enter Second Multiple";
+        gcf_input_field.text = "Enter GCF";
 
         intValue_1 = 0;
         intValue_2 = 0;
 
         intValue_GCF = 0;
-        gcf_input_field.text = "Enter GCF";
         primeText.text = "[MISSING ALL, FIND MORE DATA PACKETS]";
+    }
+
+    public void UpdatePrimeText(Dictionary<int, List<int>> data)
+    {
+        primeText.text = "";
+        foreach (var entry in data)
+        {
+            primeText.text += $"Row {entry.Key}: {string.Join(", ", entry.Value)}\n";
+        }
+
+        // If the dictionary is empty, you can display a default message
+        if (data.Count == 0)
+        {
+            primeText.text = "[MISSING ALL, FIND MORE DATA PACKETS]";
+        }
     }
 
     public void DisplayPrompt(){
@@ -88,20 +116,41 @@ public class UI_Manager : Singleton<UI_Manager>
             player.canInteract = false;
         }
 
-        if(Game_Manager.Instance.ids != null){
+        PlayerData playerData = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
 
+        if(playerData != null && playerData.data.Count != 0){
+            
             int i = 0;
-            int maximumSize = Game_Manager.Instance.ids.Count;
+            int j = 0;
+            int product = 1;
+            int maximumSize = playerData.data[j].Count;
             primeText.text = " ";
 
-            foreach (int id in Game_Manager.Instance.ids){
+            while(j < playerData.data.Count){
 
-                primeText.text += id.ToString();
-                i++;
+                product = 1;
+                
+                maximumSize = playerData.data[j].Count;
+                i = 0;
 
-                if(i < maximumSize){
-                    primeText.text += " x ";
+                foreach (int id in playerData.data[j]){
+                    
+                    primeText.text += id.ToString();
+                    product = product * id;
+                    i++;
+
+                    if(i < maximumSize){
+                        primeText.text += " x ";
+                    }
+
+                    else if(i == maximumSize){
+                        primeText.text += " = " + product.ToString();
+                    }
                 }
+
+                j++;
+                primeText.text += "\n ";
+
             }
 
         }
@@ -211,7 +260,12 @@ public class UI_Manager : Singleton<UI_Manager>
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        this.Reset();
+
+    }
+
+    public void UpdateCounter(int n){
+
+        lossCounter.text = "CHANCES " + n.ToString() + " / " + "3 ";
 
     }
 

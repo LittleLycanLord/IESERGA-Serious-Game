@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //GameManager is responsible for holding variables separate from the player, or to be maintained while inside a level.
 public class Game_Manager : Singleton<Game_Manager>
@@ -9,13 +11,7 @@ public class Game_Manager : Singleton<Game_Manager>
     public SC_FPSController player;
     
     //playerLocation is determined by the player's position at the start of the level.
-    Vector3 playerLocation = Vector3.zero;
-
-    public int nNumberofChances = 3;
-
-    public List<int> ids = new List<int>();
-
-  
+    Vector3 playerLocation = Vector3.zero; 
 
 
     // Start is called before the first frame update
@@ -28,19 +24,25 @@ public class Game_Manager : Singleton<Game_Manager>
             playerLocation =  player.transform.position;
 
         }
-        nNumberofChances = 3;
     }
 
     public void ResetAllVariables() {
 
-       player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
-       Debug.Log("Variables reset.");
+
+      player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
 
         if(player != null){
 
             player.transform.position = playerLocation;
-
         }
+
+     PlayerData playerData = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
+
+        if(playerData != null){
+
+            playerData.Reset();
+        }
+
 
         GameObject[] consoles;
         consoles = GameObject.FindGameObjectsWithTag("Console");
@@ -51,8 +53,7 @@ public class Game_Manager : Singleton<Game_Manager>
 
         }
 
-            nNumberofChances = 3;
-        
+
         GameObject[] interactables;
         interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
@@ -72,21 +73,15 @@ public class Game_Manager : Singleton<Game_Manager>
             CentralBehavior centralBehavior = GameObject.FindGameObjectWithTag("Central Console").GetComponent<CentralBehavior>();
             centralBehavior.resetDoor();
         }
-    }
 
-    public void DeductChances(){
+        Debug.Log("Variables reset.");
+         // Get the currently active scene
 
-        if(nNumberofChances > 0){
 
-            nNumberofChances -= 1;
+        UI_Manager.Instance.Initialize();
 
-            if(nNumberofChances == 0){
-
-                TriggerTimer();
-
-            }
-        }
-
+        
+        
     }
 
     public void TriggerTimer(){
@@ -99,11 +94,16 @@ public class Game_Manager : Singleton<Game_Manager>
 
     }
 
-    public void addToInventory(int id){
+    public void addToInventory(int row, int id){
 
-        if(id != 0){
-            ids.Add(id);
+        PlayerData player = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
+
+        if (!player.data.ContainsKey(row))
+        {
+            player.data[row] = new List<int>();
         }
+
+        player.data[row].Add(id);
 
     }
 
