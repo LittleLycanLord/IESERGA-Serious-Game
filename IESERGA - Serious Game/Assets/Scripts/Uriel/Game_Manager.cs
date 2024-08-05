@@ -79,8 +79,6 @@ public class Game_Manager : Singleton<Game_Manager>
 
 
         UI_Manager.Instance.Initialize();
-
-        
         
     }
 
@@ -117,5 +115,9 @@ public class Game_Manager : Singleton<Game_Manager>
 
         UI_Manager.Instance.DisplayDefeat();
 
+    }
+
+    public void QuitGame(){
+        Application.Quit();
     }
 }

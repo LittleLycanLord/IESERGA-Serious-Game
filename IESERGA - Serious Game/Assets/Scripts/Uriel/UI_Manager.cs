@@ -98,64 +98,127 @@ public class UI_Manager : Singleton<UI_Manager>
         }
     }
 
-    public void DisplayGCFPrompt(){
+    // public void DisplayGCFPrompt(){
 
-        this.Reset();
-        exitPrompt.enabled = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+    //     this.Reset();
+    //     exitPrompt.enabled = true;
+    //     Cursor.lockState = CursorLockMode.None;
+    //     Cursor.visible = true;
 
-        if(player != null){
-            player.canMove = false;
-            player.canInteract = false;
-        }
+    //     if(player != null){
+    //         player.canMove = false;
+    //         player.canInteract = false;
+    //     }
 
-        else{
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
-            player.canMove = false;
-            player.canInteract = false;
-        }
+    //     else{
+    //         player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
+    //         player.canMove = false;
+    //         player.canInteract = false;
+    //     }
 
-        PlayerData playerData = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
+    //     PlayerData playerData = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
 
-        if(playerData != null && playerData.data.Count != 0){
+    //     if(playerData != null && playerData.data.Count > 0){
             
-            int i = 0;
-            int j = 0;
-            int product = 1;
-            int maximumSize = playerData.data[j].Count;
-            primeText.text = " ";
+    //         int i = 0;
+    //         int j = 0;
+    //         int product = 1;
+    //         int maximumSize = 0;
+    //         primeText.text = " ";
 
-            while(j < playerData.data.Count){
+    //         while(j < playerData.data.Count){
 
-                product = 1;
-                
-                maximumSize = playerData.data[j].Count;
-                i = 0;
+    //             if (playerData.data[j] != null && playerData.data[j].Count > 0){     
 
-                foreach (int id in playerData.data[j]){
+    //                 product = 1;
                     
+    //                 maximumSize = playerData.data[j].Count;
+    //                 i = 0;
+
+    //                 foreach (int id in playerData.data[j]){
+                        
+    //                     primeText.text += id.ToString();
+    //                     product = product * id;
+    //                     i++;
+
+    //                     if(i < maximumSize){
+    //                         primeText.text += " x ";
+    //                     }
+
+    //                     else if(i == maximumSize){
+    //                         primeText.text += " = " + product.ToString();
+    //                     }
+    //                 }
+
+    //            }
+
+    //             j++;
+    //             primeText.text += "\n ";
+
+    //         }
+
+    //     }
+
+    // }
+
+    public void DisplayGCFPrompt()
+{
+    this.Reset();
+    exitPrompt.enabled = true;
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+
+    if (player != null)
+    {
+        player.canMove = false;
+        player.canInteract = false;
+    }
+    else
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<SC_FPSController>();
+        player.canMove = false;
+        player.canInteract = false;
+    }
+
+    PlayerData playerData = GameObject.FindGameObjectWithTag("PlayerData").GetComponent<PlayerData>();
+
+    if (playerData != null && playerData.data.Count > 0)
+    {
+        primeText.text = " ";
+
+        foreach (var entry in playerData.data)
+        {
+            List<int> list = entry.Value;
+            
+            // Check if the list is not null and contains elements
+            if (list != null && list.Count > 0)
+            {
+                int product = 1;
+                int maximumSize = list.Count;
+                int i = 0;
+
+                foreach (int id in list)
+                {
+        
                     primeText.text += id.ToString();
-                    product = product * id;
+                    product *= id;
                     i++;
 
-                    if(i < maximumSize){
+                    if (i < maximumSize)
+                    {
                         primeText.text += " x ";
                     }
-
-                    else if(i == maximumSize){
+                    else if (i == maximumSize)
+                    {
                         primeText.text += " = " + product.ToString();
                     }
                 }
 
-                j++;
                 primeText.text += "\n ";
-
             }
-
         }
-
     }
+}
 
     public void DisplayWin(){
 

@@ -8,5 +8,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Development/Prototype Level.unity
     guid: dd5f4a3590309c2459ad6423dd0f824c
+  - enabled: 1
+    path: Assets/Scenes/Development/Prototype Level 2.unity
+    guid: d946420310272cd4a8dde9f307643e27
+  - enabled: 1
+    path: Assets/Scenes/Development/Prototype Level 3.unity
+    guid: cbca4c072691f1949b746730100af402
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

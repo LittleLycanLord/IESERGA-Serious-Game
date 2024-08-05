@@ -17,6 +17,7 @@ TagManager:
   - WinUI
   - CounterUI
   - PlayerData
+  - Tutorial Chip
   layers:
   - Default
   - TransparentFX

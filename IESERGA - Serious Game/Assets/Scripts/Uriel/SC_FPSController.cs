@@ -126,6 +126,14 @@ public class SC_FPSController : MonoBehaviour
                         Debug.Log("Did Hit, object deactivating");
                     }
 
+                    
+                    else if(hit.collider.gameObject.CompareTag("Tutorial Chip")){
+
+                        objectInRange = hit.collider.gameObject;
+                        objectInRange.SetActive(false);
+                        Debug.Log("Did Hit, object deactivating");
+                    }
+
                 }
                 else
                 {
