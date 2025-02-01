@@ -18,6 +18,7 @@ TagManager:
   - CounterUI
   - PlayerData
   - Tutorial Chip
+  - Selectable
   layers:
   - Default
   - TransparentFX
